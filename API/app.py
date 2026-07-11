@@ -488,7 +488,9 @@ def aislar_diferencias_simples_ppk(obs_b, obs_r):
         sd_epoca = {'_meta': obs_r[tow]['_meta']}
         for s, d_r in obs_r[tow].items():
             if s == '_meta' or s not in obs_b[tow]: continue
-            d_b = obs_b[tow]
+            
+            # [CORRECCIÓN APLICADA]: Inyección del índice [s] para evitar colapso de matriz
+            d_b = obs_b[tow][s]
             
             # Pseudodistancia
             pr_b = d_b.get('C1') or d_b.get('C5')
@@ -1289,4 +1291,3 @@ def tab4_procesar():
 if __name__ == '__main__':
     # PUERTO 6000 (ENTORNO LOCAL AISLADO)
     app.run(host='0.0.0.0', port=6000, debug=True)
-
